@@ -22,7 +22,9 @@ public class SpringSecurityConfig {
 
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("test/login").anonymous()
+                        .requestMatchers("/reg/*").anonymous()
+                        .requestMatchers("/admin/*").hasRole("admin")
+                        .requestMatchers("/user/*").hasRole("user")
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(customizer -> customizer
                         .jwt(jwtCustomizer -> jwtCustomizer.jwtAuthenticationConverter(jwtAuthenticationConverter))
